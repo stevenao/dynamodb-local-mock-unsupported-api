@@ -1,0 +1,5 @@
+.git
+.bash_history
+.dockerignore
+.editorconfig
+node_modules

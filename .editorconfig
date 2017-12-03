@@ -1,0 +1,19 @@
+# -*- mode: ini-generic -*-
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+end_of_line = lf
+insert_final_newline = true
+
+[*.html]
+indent_size = 4
+
+[*.{sln,njsproj}]
+end_of_line = crlf
+
+[cloudformation.json]
+indent_size = 4
