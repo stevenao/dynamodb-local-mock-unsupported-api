@@ -18,15 +18,21 @@ app.use((ctx, next) => {
     };
   }
   else if (ctx.header['x-amz-target'] === 'DynamoDB_20120810.DescribeTimeToLive') {
-    if (!tableTtlMap[ctx.request.body['TableName']])
-      ctx.boxy = {};
-    else
+    if (!tableTtlMap[ctx.request.body['TableName']]) {
+      ctx.body = {
+        'TimeToLiveDescription': {
+          'TimeToLiveStatus': 'DISABLED'
+        }
+      };
+    } else {
       ctx.body = {
         'TimeToLiveDescription': {
           'AttributeName': tableTtlMap[ctx.request.body['TableName']]['AttributeName'],
           "TimeToLiveStatus": tableTtlMap[ctx.request.body['TableName']]['Status'] ? 'ENABLED' : 'DISABLED'
         }
       };
+    }
+
   }
   else if (ctx.header['x-amz-target'] === 'DynamoDB_20120810.TagResource' || ctx.header['x-amz-target'] === 'DynamoDB_20120810.UntagResource') {
     ctx.status = 200;
