@@ -5,6 +5,9 @@ const app = new koa();
 
 const tableTtlMap = {};
 
+const DYNAMO_HOST = process.env.DYNAMO_HOST || 'localhost'
+const DYNAMO_PORT = process.env.DYNAMO_PORT || '45670'
+
 app.use(body({ limit: '10kb', fallback: true }))
 
 app.use((ctx, next) => {
@@ -49,7 +52,7 @@ app.use((ctx, next) => {
 });
 
 app.use(proxy({
-  host: 'http://localhost:45670'
+  host: 'http://' + DYNAMO_HOST + ':' + DYNAMO_PORT
 })).listen(4567);
 
 console.log('started server at http://localhost:4567');
