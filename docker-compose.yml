@@ -1,0 +1,23 @@
+version: "3.4"
+services:
+  dynamodb_local_mock_unsupported_api:
+    depends_on:
+      - dynamodb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DYNAMO_HOST=dynamodb
+      - DYNAMO_PORT=8000
+    ports:
+      - 8002:4567
+      -
+  dynamodb:
+    image: amazon/dynamodb-local:1.11.477
+    command: -jar DynamoDBLocal.jar -inMemory -sharedDb
+    ports:
+      - 3307:8000
+    environment:
+      - AWS_ACCESS_KEY_ID=access_key
+      - AWS_SECRET_ACCESS_KEY=secret_key
+      - "AWS_DEFAULT_REGION=eu-west-1"

@@ -1,30 +1,9 @@
-FROM openjdk:8-jre-slim
+FROM node:8.16.2-alpine
 
-LABEL maintainer="stevenao"
+WORKDIR /usr/src/app
 
-ENV DYNAMODB_LOCAL_DIR /opt/dynamodb_local
-ENV APP_DIR /opt/app_server
+COPY . .
 
-WORKDIR $DYNAMODB_LOCAL_DIR
+RUN npm install --prod
 
-VOLUME ["/dynamodb_local_db"]
-
-ENV DYNAMODB_VERSION=latest
-
-ENV JAVA_OPTS=
-
-RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y --no-install-recommends nodejs && \
-    curl -O https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_${DYNAMODB_VERSION}.tar.gz && \
-    tar zxvf dynamodb_local_${DYNAMODB_VERSION}.tar.gz && \
-    rm dynamodb_local_${DYNAMODB_VERSION}.tar.gz && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
-    
-COPY . $APP_DIR
-
-RUN cd $APP_DIR && npm install --prod && cd $DYNAMODB_LOCAL_DIR
-
-ENTRYPOINT exec java -Djava.library.path=. ${JAVA_OPTS} -jar DynamoDBLocal.jar --sharedDb -dbPath /dynamodb_local_db -port 45670 & cd $APP_DIR && npm run start
-
-EXPOSE 4567
+ENTRYPOINT ["sh", "-c", "npm run start"]
