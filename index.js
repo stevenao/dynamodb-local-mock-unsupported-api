@@ -55,4 +55,4 @@ app.use(proxy({
   host: 'http://' + DYNAMO_HOST + ':' + DYNAMO_PORT
 })).listen(4567);
 
-console.log('started server at http://localhost:4567');
+console.log('started server at http://0.0.0.0:4567');
