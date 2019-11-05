@@ -6,9 +6,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - DYNAMO_HOST=dynamodb
-      - DYNAMO_PORT=8000
     ports:
       - 8002:4567
       -

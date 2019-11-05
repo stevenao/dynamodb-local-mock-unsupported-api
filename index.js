@@ -5,8 +5,8 @@ const app = new koa();
 
 const tableTtlMap = {};
 
-const DYNAMO_HOST = process.env.DYNAMO_HOST || 'localhost';
-const DYNAMO_PORT = process.env.DYNAMO_PORT || '45670';
+const DYNAMO_HOST = process.env.DYNAMO_HOST || 'dynamodb';
+const DYNAMO_PORT = process.env.DYNAMO_PORT || '8000';
 
 app.use(body({ limit: '10kb', fallback: true }));
 
