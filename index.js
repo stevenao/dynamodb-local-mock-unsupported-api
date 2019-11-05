@@ -1,14 +1,14 @@
 const koa = require('koa');
-const body = require('koa-json-body')
+const body = require('koa-json-body');
 const proxy = require('koa-proxy');
 const app = new koa();
 
 const tableTtlMap = {};
 
-const DYNAMO_HOST = process.env.DYNAMO_HOST || 'localhost'
-const DYNAMO_PORT = process.env.DYNAMO_PORT || '45670'
+const DYNAMO_HOST = process.env.DYNAMO_HOST || 'localhost';
+const DYNAMO_PORT = process.env.DYNAMO_PORT || '45670';
 
-app.use(body({ limit: '10kb', fallback: true }))
+app.use(body({ limit: '10kb', fallback: true }));
 
 app.use((ctx, next) => {
   if (ctx.header['x-amz-target'] === 'DynamoDB_20120810.UpdateTimeToLive') {
