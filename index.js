@@ -43,6 +43,26 @@ app.use((ctx, next) => {
   else if (ctx.header['x-amz-target'] === 'DynamoDB_20120810.ListTagsOfResource') {
     ctx.body = {};
   }
+  else if (ctx.header['x-amz-target'] === 'DynamoDB_20120810.UpdateContinuousBackups') {
+    ctx.body = {
+      "ContinuousBackupsDescription": {
+        "ContinuousBackupsStatus": "ENABLED",
+        "PointInTimeRecoveryDescription": {
+          "PointInTimeRecoveryStatus": "ENABLED"
+        }
+      }
+    }
+  }
+  else if (ctx.header['x-amz-target'] === 'DynamoDB_20120810.DescribeContinuousBackups') {
+    ctx.body = {
+      "ContinuousBackupsDescription": {
+        "ContinuousBackupsStatus": "ENABLED",
+        "PointInTimeRecoveryDescription": {
+          "PointInTimeRecoveryStatus": "ENABLED"
+        }
+      }
+    }
+  }
   else if (ctx.path === '/shell') {
     ctx.redirect('shell/');
   }
