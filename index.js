@@ -7,6 +7,7 @@ const tableTtlMap = {};
 
 const DYNAMO_HOST = process.env.DYNAMO_HOST || 'dynamodb';
 const DYNAMO_PORT = process.env.DYNAMO_PORT || '8000';
+const SERVER_PORT = process.env.SERVER_PORT || '4567';
 
 app.use(body({ limit: '10kb', fallback: true }));
 
@@ -73,6 +74,6 @@ app.use((ctx, next) => {
 
 app.use(proxy({
   host: 'http://' + DYNAMO_HOST + ':' + DYNAMO_PORT
-})).listen(4567);
+})).listen(SERVER_PORT);
 
-console.log('started server at http://0.0.0.0:4567');
+console.log('started server at http://0.0.0.0:' + SERVER_PORT);
