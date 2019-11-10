@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8002:4567
-      -
+
   dynamodb:
     image: amazon/dynamodb-local:1.11.477
     command: -jar DynamoDBLocal.jar -inMemory -sharedDb
